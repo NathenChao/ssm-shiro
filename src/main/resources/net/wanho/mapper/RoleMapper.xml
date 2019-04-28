@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.wanho.mapper.RoleMapper">
+    <resultMap id="RoleMap" type="Role">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+
+    </resultMap>
+    <insert id="insertUserAndRole">
+        INSERT INTO t_user_role  VALUES(NULL,#{uid},#{rid})
+    </insert>
+    <delete id="deleteAllRole">
+
+      DELETE FROM t_user_role WHERE userid = #{userId}
+
+
+    </delete>
+
+    <select id="getAllRoles" resultMap="RoleMap">
+
+
+        SELECT * FROM t_role
+
+
+    </select>
+    <select id="getRoleByUserId" resultMap="RoleMap">
+
+        SELECT
+            r.*
+        FROM
+            t_user u,
+            t_user_role ur,
+            t_role r
+        WHERE
+            u.userid = ur.userid
+        AND ur.roleid = r.role_id
+        AND u.userid = #{userId}
+
+    </select>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.wanho.mapper.PermissionMapper">
+
+
+    <select id="getAllPermissions" resultType="net.wanho.dto.ZtreeDto">
+
+
+         SELECT
+        p.permission_id id,
+        pp.permission_id pId,
+        p.permission_name NAME
+    FROM
+        t_permission p
+    LEFT JOIN t_permission pp ON p.parent_id = pp.permission_id
+    </select>
+    <select id="getPermissionByRid" resultType="java.lang.Integer">
+
+                    SELECT
+                rp.t_permission_id
+            FROM
+                t_role_permission rp
+            WHERE
+                rp.t_rloe_id = #{rid}
+
+    </select>
+</mapper>
